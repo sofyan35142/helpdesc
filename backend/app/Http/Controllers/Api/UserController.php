@@ -10,12 +10,14 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class UserController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         // return "p";
-        return User::select('id','name','email','level')->get();
+        return User::select('id', 'name', 'email', 'level')->get();
     }
-    public function store(Request $request){
-        return $request->all();
+    public function store(Request $request)
+    {
+        // return $request->all();
         $request->validate([
             'name' => 'required',
             'email' => 'required',
@@ -30,23 +32,26 @@ class UserController extends Controller
                 'password' => bcrypt($request->password),
                 'level' => $request->level,
             ]);
+
             return response()->json([
                 'message' => "User berhasil dibuat"
             ]);
-        }catch(\Exception $e) {
+        } catch (\Exception $e) {
             \Log::error($e->getMessage());
             return response()->json([
-                'message'=>'Ada yang salah saat membuat user coba ulangi lagi!!!'
-            ],500);
+                'message' => 'Ada yang salah saat membuat user coba ulangi lagi!!!'
+            ], 500);
         }
     }
-    public function show($id){
+    public function show($id)
+    {
         $user = User::findOrFail($id);
         return response()->json([
             'user' => $user
         ]);
     }
-    public function update(Request $request,$id){
+    public function update(Request $request, $id)
+    {
         $user = User::find($id);
         // return $request->all();
         $request->validate([
@@ -67,10 +72,10 @@ class UserController extends Controller
             ]);
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
-
         }
     }
-    public function destroy($id){
+    public function destroy($id)
+    {
         $user = user::find($id);
         try {
             $user->delete();

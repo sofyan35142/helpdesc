@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->integer('id_user');
             $table->string('keluhan')->nullable();
-            $table->date('tgl_keluhan')->nullable();
+            $table->string('link_img')->nullable();
             $table->text('deskripsi')->nullable();
             $table->string('foto')->nullable();
             $table->timestamps();
